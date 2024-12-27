@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -12,10 +12,11 @@ export class LoginComponent implements OnInit {
   loginForm!: FormGroup;
   submitted = false;
   errorMessage: string = '';
+  public loginValid = true;
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService,
+    private _authService: AuthService,
     private router: Router
   ) {}
 
@@ -36,10 +37,12 @@ export class LoginComponent implements OnInit {
       return;
     }
     // Call the AuthService to handle login
-    this.authService.login(this.loginForm.value.username, this.loginForm.value.password)
+    this._authService.login(this.loginForm.value.username, this.loginForm.value.password)
       .subscribe({
-        next: () => {
-          this.router.navigate(['/']);
+        next: (value:any) => {
+          console.log("value",value);
+          localStorage.setItem('token',value);
+          this.router.navigate(['/employee-list']);
         },
         error: (error) => {
           this.errorMessage = 'Invalid username or password';

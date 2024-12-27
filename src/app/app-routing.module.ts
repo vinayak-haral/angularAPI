@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AppComponent } from './app.component';
-import { EmployeeListComponent } from './employee-list/employee-list/employee-list.component';
+import { EmployeeListComponent } from './pages/employee-list/employee-list.component';
 import { AuthGuard } from './services/auth-guard/auth.guard';
-import { LoginComponent } from './login/login.component';
+import { LoginComponent } from './pages/login/login.component';
+import { EmpRegistrationComponent } from './pages/emp-registration/emp-registration.component';
+import { BeginDashboardComponent } from './pages/begin-dashboard/begin-dashboard.component';
 
 const routes: Routes = [
-  // { path:'',component:AppComponent },
-  { path: '', component: LoginComponent },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Default route to login
-  { path:'employee-list',component:EmployeeListComponent,canActivate: [AuthGuard] }
+  { path:'',component:BeginDashboardComponent },
+  { path: 'login', component: LoginComponent },
+  { path:'employee-list',component:EmployeeListComponent,canActivate: [AuthGuard] },
+  { path:'employee-regis',component:EmpRegistrationComponent}
 ];
 
 @NgModule({

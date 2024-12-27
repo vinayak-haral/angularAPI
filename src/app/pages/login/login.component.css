@@ -1,0 +1,44 @@
+/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+
+/* .login-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  } */
+  
+  /* .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .error {
+    color: red;
+    font-size: 12px;
+  }
+  
+  button {
+    width: 100%;
+  }
+
+  .row {
+    flex-shrink: 0;
+    width: 100%;
+    max-width: 100%;
+  } */
+
+  mat-card {
+    max-width: 400px;
+    margin: 2em auto;
+    text-align: center;
+  }
+  
+  mat-form-field {
+    display: block;
+  }
+
+  .error {
+    color: red;
+    font-size: 12px;
+  }

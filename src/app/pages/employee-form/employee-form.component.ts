@@ -1,9 +1,10 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { Employee } from '../models/employee.model';
+import { Employee } from 'src/app/models/employee.model';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { EmployeeService } from '../services/employee.service';
-import { CoreService } from '../services/core.service';
+
+import { EmployeeService } from 'src/app/services/employee.service';
+import { CoreService } from 'src/app/services/core.service';
 
 @Component({
   selector: 'app-employee-form',

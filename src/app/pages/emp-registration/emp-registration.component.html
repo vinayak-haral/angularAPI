@@ -1,0 +1,87 @@
+
+<h4 class="text-decoration" style="text-align: center;">
+    Emp Registration Form!
+</h4> 
+
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>First Name</mat-label>
+      <input matInput formControlName="firstName">
+      <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">
+        First Name is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Last Name</mat-label>
+      <input matInput formControlName="lastName">
+      <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">
+        Last Name is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+      <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
+        Email is required
+      </mat-error>
+      <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">
+        Enter a valid email
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Phone</mat-label>
+      <input matInput formControlName="phone">
+      <mat-error *ngIf="registrationForm.get('phone')?.hasError('required')">
+        Phone number is required
+      </mat-error>
+      <mat-error *ngIf="registrationForm.get('phone')?.hasError('pattern')">
+        Enter a valid 10-digit phone number
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-radio-group formControlName="gender">
+      <mat-radio-button value="male">Male</mat-radio-button>
+      <mat-radio-button value="female" style="padding-left: 25px;">Female</mat-radio-button>
+    </mat-radio-group>
+    <mat-error *ngIf="registrationForm.get('gender')?.hasError('required')">
+      Gender is required
+    </mat-error>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Location</mat-label>
+      <input matInput formControlName="location">
+      <mat-error *ngIf="registrationForm.get('location')?.hasError('required')">
+        Location is required
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+      <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">
+        Password is required
+      </mat-error>
+      <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')">
+        Password must be at least 6 characters
+      </mat-error>
+    </mat-form-field>
+  
+    <mat-form-field appearance="fill">
+      <mat-label>Confirm Password</mat-label>
+      <input matInput type="password" formControlName="confirmPassword">
+      <mat-error *ngIf="registrationForm.get('confirmPassword')?.hasError('required')">
+        Confirm Password is required
+      </mat-error>
+      <mat-error *ngIf="registrationForm.hasError('mustMatch')">
+        Passwords must match
+      </mat-error>
+    </mat-form-field>
+  
+    <button mat-raised-button color="primary" type="submit" [disabled]="!registrationForm.valid">
+      Register
+    </button>
+  </form>
+  

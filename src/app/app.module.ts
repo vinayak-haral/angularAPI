@@ -5,11 +5,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
-import { AppComponent } from './app.component';
-import { EmployeeListComponent } from './employee-list/employee-list/employee-list.component';
-import { EmployeeService } from './services/employee.service';
-import { EmployeeFormComponent } from './employee-form/employee-form.component';
-
 import { JwtInterceptorService } from './services/jwt-interceptor.service'
 
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,8 +21,18 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatCardModule} from '@angular/material/card';
+import {MatMenuModule} from '@angular/material/menu';
+
 import { JwtInterceptor } from '@auth0/angular-jwt';
-import { LoginComponent } from './login/login.component';
+
+
+import { AppComponent } from './app.component';
+import { EmployeeListComponent } from './pages/employee-list/employee-list.component';
+import { EmployeeFormComponent } from './pages/employee-form/employee-form.component';
+import { LoginComponent } from './pages/login/login.component';
+import { EmpRegistrationComponent } from './pages/emp-registration/emp-registration.component';
+import { BeginDashboardComponent } from './pages/begin-dashboard/begin-dashboard.component';
 
 
 @NgModule({
@@ -36,6 +41,8 @@ import { LoginComponent } from './login/login.component';
     EmployeeListComponent,
     EmployeeFormComponent,
     LoginComponent,
+    EmpRegistrationComponent,
+    BeginDashboardComponent,
     
   ],
   imports: [
@@ -58,10 +65,16 @@ import { LoginComponent } from './login/login.component';
     MatPaginatorModule,
     MatSortModule,
     MatSnackBarModule,
+    MatCardModule,
+    MatMenuModule
   ],
-  providers: [EmployeeService
-    //,{ provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } 
+  // providers: [ EmployeeService ,
+  //   // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true } 
+  // ],
+  providers:[
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptorService, multi: true }
   ],
+
   bootstrap: [AppComponent]
 })
 export class AppModule { }
