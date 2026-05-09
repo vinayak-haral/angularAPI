@@ -1,44 +1,107 @@
-/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
+:host { display:block; }
 
-/* .login-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  } */
-  
-  /* .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .error {
-    color: red;
-    font-size: 12px;
-  }
-  
-  button {
-    width: 100%;
-  }
+/* Viewport center */
+.login-viewport {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(1200px 600px at 10% 10%, rgba(99,102,241,0.06), transparent 10%),
+              linear-gradient(180deg,#f8fafc 0%, #ffffff 100%);
+  padding: 32px;
+}
 
-  .row {
-    flex-shrink: 0;
-    width: 100%;
-    max-width: 100%;
-  } */
+/* Card with glass effect and soft shadow */
+.login-card {
+  position: relative;
+  width: 100%;
+  max-width: 460px;
+  border-radius: 14px;
+  overflow: visible;
+  background: linear-gradient(180deg, rgba(255,255,255,0.86), rgba(250,250,255,0.82));
+  backdrop-filter: blur(6px) saturate(120%);
+  box-shadow: 0 12px 40px rgba(16,24,40,0.12);
+  border: 1px solid rgba(99,102,241,0.08);
+  transform: translateY(0);
+  transition: transform .22s cubic-bezier(.2,.9,.2,1), box-shadow .22s ease;
+  animation: popIn .28s ease both;
+}
 
-  mat-card {
-    max-width: 400px;
-    margin: 2em auto;
-    text-align: center;
-  }
-  
-  mat-form-field {
-    display: block;
-  }
+/* Decorative gradient corner */
+.card-decor {
+  position: absolute;
+  top: -28px;
+  right: -28px;
+  width: 120px;
+  height: 120px;
+  background: conic-gradient(from 180deg at 50% 50%, rgba(99,102,241,0.18), rgba(59,130,246,0.12), transparent 60%);
+  filter: blur(18px);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: .9;
+}
 
-  .error {
-    color: red;
-    font-size: 12px;
-  }
+/* Header */
+.k-card-header { padding: 20px 22px 8px; }
+.brand { display:flex; gap:12px; align-items:center; }
+.brand-logo { font-size:28px; display:inline-flex; align-items:center; justify-content:center; width:48px; height:48px; background:linear-gradient(135deg,#fff,#f3f4ff); border-radius:10px; box-shadow: 0 6px 18px rgba(59,130,246,0.06); }
+.card-title { margin:0; font-size:1.25rem; color:#0f172a; font-weight:700; }
+.card-subtitle { margin:2px 0 0; color:#6b7280; font-size:.9rem; }
+
+/* Body */
+.k-card-body { padding: 18px 22px 20px; display:flex; flex-direction:column; gap:10px; }
+
+/* Labels and inputs */
+.k-label { display:block; font-weight:600; color:#374151; margin-bottom:6px; font-size:.9rem; }
+.input-wrap { position:relative; display:flex; align-items:center; gap:8px; }
+.input-icon { position:absolute; left:10px; font-size:14px; color:#9ca3af; pointer-events:none; }
+.k-input { width:100%; padding:12px 12px 12px 36px; border-radius:10px; border:1px solid rgba(15,23,42,0.06); background:linear-gradient(180deg,#fff,#fbfdff); transition: box-shadow .14s ease, border-color .14s ease; font-size:0.95rem; color:#0f172a; }
+.k-input::placeholder { color:#9ca3af; }
+.k-input:focus { outline:none; box-shadow: 0 6px 18px rgba(59,130,246,0.08); border-color:#3b82f6; }
+
+/* Show/hide password button */
+.toggle-pass { position:absolute; right:8px; background:transparent; border:0; padding:6px; border-radius:8px; cursor:pointer; color:#374151; }
+.toggle-pass:focus { box-shadow: 0 0 0 4px rgba(59,130,246,0.08); outline:none; }
+
+/* Errors */
+.field-error, .error-message { color:#b91c1c; font-size:.85rem; margin-top:6px; }
+
+/* Row layout */
+.row-between { display:flex; align-items:center; justify-content:space-between; margin-top:6px; }
+.remember { display:flex; gap:8px; align-items:center; color:#374151; font-size:.9rem; }
+.remember input { width:16px; height:16px; }
+
+/* Actions */
+.actions { margin-top:14px; display:flex; gap:10px; }
+.btn-primary { width:100%; padding:12px 14px; border-radius:10px; font-weight:600; letter-spacing:.2px; transition: transform .12s ease, box-shadow .12s ease; }
+.btn-primary:hover:not([disabled]) { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(59,130,246,0.12); }
+.btn-primary[disabled] { opacity:.6; cursor:not-allowed; transform:none; }
+
+/* Divider */
+.divider { display:flex; align-items:center; gap:12px; margin:14px 0; color:#9ca3af; font-size:.85rem; }
+.divider::before, .divider::after { content:""; flex:1; height:1px; background:linear-gradient(90deg, transparent, rgba(15,23,42,0.04)); }
+
+/* Social buttons */
+.socials { display:flex; gap:10px; justify-content:center; }
+.social-btn { width:44px; height:44px; border-radius:10px; border:1px solid rgba(15,23,42,0.06); background:#fff; font-weight:700; cursor:pointer; transition: transform .12s ease, box-shadow .12s ease; }
+.social-btn:hover { transform: translateY(-4px); box-shadow: 0 8px 22px rgba(16,24,40,0.08); }
+.social-btn.google { color:#db4437; }
+.social-btn.microsoft { color:#0078d4; }
+.social-btn.github { color:#111827; }
+
+/* Footer */
+.k-card-footer { padding:12px 22px; background:transparent; display:flex; gap:8px; justify-content:center; align-items:center; border-top:1px dashed rgba(15,23,42,0.03); color:#6b7280; }
+.link { color:#2563eb; text-decoration:none; font-weight:600; }
+.link:hover { text-decoration:underline; }
+
+/* Small screens */
+@media (max-width:480px) {
+  .login-card { max-width: 92%; border-radius:12px; }
+  .brand-logo { width:44px; height:44px; }
+}
+
+/* Entrance animation */
+@keyframes popIn {
+  from { transform: translateY(10px) scale(.995); opacity:0; }
+  to { transform: translateY(0) scale(1); opacity:1; }
+}

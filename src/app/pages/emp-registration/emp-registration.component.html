@@ -1,87 +1,102 @@
 
-<h4 class="text-decoration" style="text-align: center;">
-    Emp Registration Form!
-</h4> 
-
+<!-- Kendo UI Modal Dialog -->
+<div class="kendo-modal-overlay" *ngIf="isModalOpen" (click)="closeRegistrationModal()"></div>
+<div class="kendo-modal-dialog" *ngIf="isModalOpen">
+  <div class="kendo-modal-header">
+    <h2>Employee Registration</h2>
+    <button class="kendo-modal-close" (click)="closeRegistrationModal()">×</button>
+  </div>
+  
+  <div class="kendo-modal-content">
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-    <mat-form-field appearance="fill">
-      <mat-label>First Name</mat-label>
-      <input matInput formControlName="firstName">
-      <mat-error *ngIf="registrationForm.get('firstName')?.hasError('required')">
-        First Name is required
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Last Name</mat-label>
-      <input matInput formControlName="lastName">
-      <mat-error *ngIf="registrationForm.get('lastName')?.hasError('required')">
-        Last Name is required
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Email</mat-label>
-      <input matInput formControlName="email">
-      <mat-error *ngIf="registrationForm.get('email')?.hasError('required')">
-        Email is required
-      </mat-error>
-      <mat-error *ngIf="registrationForm.get('email')?.hasError('email')">
-        Enter a valid email
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Phone</mat-label>
-      <input matInput formControlName="phone">
-      <mat-error *ngIf="registrationForm.get('phone')?.hasError('required')">
-        Phone number is required
-      </mat-error>
-      <mat-error *ngIf="registrationForm.get('phone')?.hasError('pattern')">
-        Enter a valid 10-digit phone number
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-radio-group formControlName="gender">
-      <mat-radio-button value="male">Male</mat-radio-button>
-      <mat-radio-button value="female" style="padding-left: 25px;">Female</mat-radio-button>
-    </mat-radio-group>
-    <mat-error *ngIf="registrationForm.get('gender')?.hasError('required')">
-      Gender is required
-    </mat-error>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Location</mat-label>
-      <input matInput formControlName="location">
-      <mat-error *ngIf="registrationForm.get('location')?.hasError('required')">
-        Location is required
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Password</mat-label>
-      <input matInput type="password" formControlName="password">
-      <mat-error *ngIf="registrationForm.get('password')?.hasError('required')">
-        Password is required
-      </mat-error>
-      <mat-error *ngIf="registrationForm.get('password')?.hasError('minlength')">
-        Password must be at least 6 characters
-      </mat-error>
-    </mat-form-field>
-  
-    <mat-form-field appearance="fill">
-      <mat-label>Confirm Password</mat-label>
-      <input matInput type="password" formControlName="confirmPassword">
-      <mat-error *ngIf="registrationForm.get('confirmPassword')?.hasError('required')">
-        Confirm Password is required
-      </mat-error>
-      <mat-error *ngIf="registrationForm.hasError('mustMatch')">
-        Passwords must match
-      </mat-error>
-    </mat-form-field>
-  
-    <button mat-raised-button color="primary" type="submit" [disabled]="!registrationForm.valid">
-      Register
-    </button>
-  </form>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" class="k-textbox" formControlName="firstName">
+        <span class="error-message" *ngIf="registrationForm.get('firstName')?.hasError('required') && registrationForm.get('firstName')?.touched">
+          First Name is required
+        </span>
+      </div>
+    
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" class="k-textbox" formControlName="lastName">
+        <span class="error-message" *ngIf="registrationForm.get('lastName')?.hasError('required') && registrationForm.get('lastName')?.touched">
+          Last Name is required
+        </span>
+      </div>
+    
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" class="k-textbox" formControlName="email">
+        <span class="error-message" *ngIf="registrationForm.get('email')?.hasError('required') && registrationForm.get('email')?.touched">
+          Email is required
+        </span>
+        <span class="error-message" *ngIf="registrationForm.get('email')?.hasError('email') && registrationForm.get('email')?.touched">
+          Enter a valid email
+        </span>
+      </div>
+    
+      <div class="form-group">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" class="k-textbox" formControlName="phone">
+        <span class="error-message" *ngIf="registrationForm.get('phone')?.hasError('required') && registrationForm.get('phone')?.touched">
+          Phone number is required
+        </span>
+        <span class="error-message" *ngIf="registrationForm.get('phone')?.hasError('pattern') && registrationForm.get('phone')?.touched">
+          Enter a valid 10-digit phone number
+        </span>
+      </div>
+    
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-group">
+          <label><input type="radio" name="gender" value="male" formControlName="gender"> Male</label>
+          <label style="padding-left: 25px;"><input type="radio" name="gender" value="female" formControlName="gender"> Female</label>
+        </div>
+        <span class="error-message" *ngIf="registrationForm.get('gender')?.hasError('required') && registrationForm.get('gender')?.touched">
+          Gender is required
+        </span>
+      </div>
+    
+      <div class="form-group">
+        <label for="location">Location</label>
+        <input type="text" id="location" class="k-textbox" formControlName="location">
+        <span class="error-message" *ngIf="registrationForm.get('location')?.hasError('required') && registrationForm.get('location')?.touched">
+          Location is required
+        </span>
+      </div>
+    
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" class="k-textbox" formControlName="password">
+        <span class="error-message" *ngIf="registrationForm.get('password')?.hasError('required') && registrationForm.get('password')?.touched">
+          Password is required
+        </span>
+        <span class="error-message" *ngIf="registrationForm.get('password')?.hasError('minlength') && registrationForm.get('password')?.touched">
+          Password must be at least 6 characters
+        </span>
+      </div>
+    
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" class="k-textbox" formControlName="confirmPassword">
+        <span class="error-message" *ngIf="registrationForm.get('confirmPassword')?.hasError('required') && registrationForm.get('confirmPassword')?.touched">
+          Confirm Password is required
+        </span>
+        <span class="error-message" *ngIf="registrationForm.hasError('mustMatch') && registrationForm.get('confirmPassword')?.touched">
+          Passwords must match
+        </span>
+      </div>
+
+      <div class="kendo-modal-footer">
+        <button kendo-button type="button" (click)="closeRegistrationModal()">
+          Cancel
+        </button>
+        <button kendo-button themeColor="primary" type="submit" [disabled]="!registrationForm.valid">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
   

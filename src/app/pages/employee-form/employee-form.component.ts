@@ -83,4 +83,8 @@ export class EmployeeFormComponent implements OnInit {
     }
   }
 
+  onCancel() {
+    this._dialogRef.close(false);
+  }
+
 }

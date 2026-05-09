@@ -1,78 +1,60 @@
 <p>employee-form works!</p>
 
-<div mat-dialog-title>
+<div class="dialog-title">
     <h1>Employee Form</h1>
 </div>
 <form [formGroup]="empForm" (ngSubmit)="onFormSubmit()">
-    <div mat-dialog-content class="content">
+    <div class="dialog-content content">
         <div class="row">
-            <mat-form-field appearance="outline">
-                <mat-label>First name</mat-label>
-                <input matInput type="text" placeholder="Ex. Technical" formControlName="name">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Phone</mat-label>
-                <input matInput placeholder="phone number" formControlName="phone">
-            </mat-form-field>
+            <div class="form-group">
+                <label for="name">First name</label>
+                <input type="text" id="name" class="k-textbox" placeholder="Ex. Technical" formControlName="name">
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" id="phone" class="k-textbox" placeholder="phone number" formControlName="phone">
+            </div>
         </div>
 
         <div class="row">
-            <mat-form-field appearance="outline">
-                <mat-label>Email</mat-label>
-                <input matInput type="email" placeholder="Ex. test@gmail.com" formControlName="email">
-            </mat-form-field>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" class="k-textbox" placeholder="Ex. test@gmail.com" formControlName="email">
+            </div>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Price</mat-label>
-                <input matInput type="text" placeholder="Enter Price" formControlName="price">
-            </mat-form-field>
-            <!-- <mat-form-field appearance="outline">
-                <mat-label>Date of birth</mat-label>
-                <input matInput [matDatepicker]="picker" formControlName="dob">
-                <mat-hint>MM/DD/YYYY</mat-hint>
-                <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-            </mat-form-field> -->
+            <div class="form-group">
+                <label for="price">Price</label>
+                <input type="text" id="price" class="k-textbox" placeholder="Enter Price" formControlName="price">
+            </div>
         </div>
 
-        <!-- <div class="row">
-            <mat-radio-group aria-label="Select an option" formControlName="gender">
-                <mat-label><b>Gender</b></mat-label>
-                <mat-radio-button value="male">Male</mat-radio-button>
-                <mat-radio-button value="female">Female</mat-radio-button>
-                <mat-radio-button value="others">Others</mat-radio-button>
-            </mat-radio-group>
-        </div> -->
-
         <div class="row">
-            <mat-form-field appearance="outline">
-                <mat-label>Education</mat-label>
-                <mat-select formControlName="education">
-                    <mat-option *ngFor="let val of education" [value]="val">{{val}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Salary</mat-label>
-                <input matInput placeholder="Ex. Google" formControlName="salary">
-            </mat-form-field>
+            <div class="form-group">
+                <label for="education">Education</label>
+                <select id="education" class="k-textbox" formControlName="education">
+                    <option value="">Select Education</option>
+                    <option *ngFor="let val of education" [value]="val">{{val}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="salary">Salary</label>
+                <input type="text" id="salary" class="k-textbox" placeholder="Ex. Google" formControlName="salary">
+            </div>
         </div>
         <div class="row">
-            <mat-form-field appearance="outline">
-                <mat-label>Quantity</mat-label>
-                <input matInput placeholder="Ex. 4" type="number" formControlName="quantity">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Department</mat-label>
-                <input matInput placeholder="Ex. 12" type="text" formControlName="department">
-                <!-- <mat-hint>In rupees</mat-hint> -->
-            </mat-form-field>
+            <div class="form-group">
+                <label for="quantity">Quantity</label>
+                <input type="number" id="quantity" class="k-textbox" placeholder="Ex. 4" formControlName="quantity">
+            </div>
+            <div class="form-group">
+                <label for="department">Department</label>
+                <input type="text" id="department" class="k-textbox" placeholder="Ex. 12" formControlName="department">
+            </div>
         </div>
     </div>
-    <div mat-dialog-actions class="action">
-        <button mat-raised-button type="button" [mat-dialog-close]="false">Cancel</button>
-        <!-- <button mat-raised-button type="button" [mat-dialog-close]="false">Update</button> -->
-        <button mat-raised-button color="primary" type="submit">{{data ? 'Update': 'Save'}}</button>
+    <div class="dialog-actions action">
+        <button kendo-button type="button" (click)="onCancel()">Cancel</button>
+        <button kendo-button themeColor="primary" type="submit">{{data ? 'Update': 'Save'}}</button>
     </div>
 </form>
 

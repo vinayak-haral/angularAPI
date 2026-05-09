@@ -7,10 +7,11 @@ import { EmpRegistrationComponent } from './pages/emp-registration/emp-registrat
 import { BeginDashboardComponent } from './pages/begin-dashboard/begin-dashboard.component';
 
 const routes: Routes = [
-  { path:'',component:BeginDashboardComponent },
-  { path: 'login', component: LoginComponent },
-  { path:'employee-list',component:EmployeeListComponent,canActivate: [AuthGuard] },
-  { path:'employee-regis',component:EmpRegistrationComponent}
+  { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
+  { path: 'dashboard', component: BeginDashboardComponent, data: { breadcrumb: 'Dashboard' } },
+  { path: 'login', component: LoginComponent, data: { breadcrumb: 'Login' } },
+  { path: 'employee-list', component: EmployeeListComponent, canActivate: [AuthGuard], data: { breadcrumb: 'Employee List' } },
+  { path: 'employee-regis', component: EmpRegistrationComponent, data: { breadcrumb: 'Employee Registration' } }
 ];
 
 @NgModule({

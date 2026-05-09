@@ -1,26 +1,41 @@
-<mat-toolbar color="primary">
-  <span routerLink="/">
+<div class="app-toolbar">
+  <div class="toolbar-brand" routerLink="/">
     Crud Application
-  </span>
-  <span class="example-spacer"></span>
-  <!-- <button mat-raised-button routerLink="login" style="margin-right: 10px;"> 
-    {{isAuthenticated ? 'Login': 'Logout'}}
-  </button> -->
-
-
-  <button mat-button routerLink="/login" *ngIf="!isAuthenticated">
-    <mat-icon>power_settings_new</mat-icon>
+  </div>
+  <div class="toolbar-spacer"></div>
+  
+  <button kendo-button *ngIf="!isAuthenticated" routerLink="/login" themeColor="primary">
     Login
   </button>
-  <button mat-button *ngIf="isAuthenticated" (click)="logout()">
-    <mat-icon>exit_to_app</mat-icon>
-    Logout
-  </button>
-  <button mat-button routerLink="/employee-regis">
+  <button kendo-button *ngIf="!isAuthenticated" (click)="openSignupModal()">
     Signup
   </button>
+  <button kendo-button *ngIf="isAuthenticated" routerLink="/dashboard" themeColor="info">
+    Dashboard
+  </button>
+  <button kendo-button *ngIf="isAuthenticated" routerLink="/employee-list" themeColor="primary">
+    Employee List
+  </button>
+  <button kendo-button *ngIf="isAuthenticated" (click)="logout()" themeColor="error">
+    Logout
+  </button>
+</div>
 
-</mat-toolbar>
+<nav class="app-breadcrumb" *ngIf="breadcrumbs.length">
+  <a routerLink="/">Home</a>
+  <span *ngFor="let breadcrumb of breadcrumbs; let last = last">
+    <span class="breadcrumb-separator">/</span>
+    <ng-container *ngIf="!last">
+      <a [routerLink]="breadcrumb.url">{{ breadcrumb.label }}</a>
+    </ng-container>
+    <ng-container *ngIf="last">
+      <span class="breadcrumb-current">{{ breadcrumb.label }}</span>
+    </ng-container>
+  </span>
+</nav>
+
+<!-- Emp Registration Modal -->
+<app-emp-registration #empRegistration></app-emp-registration>
 
 
 

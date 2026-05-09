@@ -1,73 +1,109 @@
 
-<div class="login-container">
-
-  <!-- <div>
-    <h2>Login</h2>
-    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
-      <div class="row">
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" formControlName="username" class="form-control" placeholder="Enter username" />
-            <div *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
-              <span class="error">
-              Username is required </span>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" formControlName="password" class="form-control" placeholder="Enter password" />
-            <div *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
-              <span class="error">
-                Password is required
-              </span>
-            </div>
-          </div>
-        </div>
-        <div *ngIf="this.errorMessage" style="margin-bottom: 10px;">
-            <span class="error">
-                {{this.errorMessage}}
-            </span>
-        </div>
-
-        <button type="submit" class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
-      </div>
-    </form>
-  </div> -->
-
-  <mat-card>
-    <mat-card-content>
+<!-- <div class="login-container">
+ 
+  <div class="kendo-card">
+    <div class="card-content">
       <form  [formGroup]="loginForm"  (ngSubmit)="onSubmit()">
         <h2>Log In</h2>
-        <mat-form-field>
-          <input matInput placeholder="Email" formControlName="username" name="username" required>
-          <mat-error>
+        <div class="form-group">
+          <label for="username">Email</label>
+          <input type="email" id="username" class="k-textbox" placeholder="Email" formControlName="username" name="username" required>
+          <span class="error-message" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
             Please provide a valid email address
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field>
-          <input matInput type="password" placeholder="Password" formControlName="password" name="password" required>
-          <mat-error>
-            Please provide a valid password
-          </mat-error>
-        </mat-form-field>
-        <!-- <div *ngIf="this.errorMessage" style="margin-bottom: 10px;">
-          <span class="error">
-              {{this.errorMessage}}
           </span>
-      </div> -->
-      <mat-error *ngIf="errorMessage">
-        The username and password were not recognized.
-      </mat-error>
-        <button mat-raised-button color="primary" [disabled]="!loginForm.valid">Login</button>
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="k-textbox" placeholder="Password" formControlName="password" name="password" required>
+          <span class="error-message" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+            Please provide a valid password
+          </span>
+        </div>
+        <div class="error-message" *ngIf="errorMessage" style="margin-bottom: 10px;">
+          <span>
+            The username and password were not recognized.
+          </span>
+        </div>
+        <button kendo-button themeColor="primary" [disabled]="!loginForm.valid">Login</button>
       </form>
-    </mat-card-content>
-  </mat-card>
+    </div>
+  </div>
+
+</div> -->
 
 
+<div class="login-viewport">
+  <div class="login-card k-card" role="region" aria-labelledby="loginTitle">
+    <div class="card-decor"></div>
 
+    <header class="k-card-header">
+      <div class="brand">
+        <span class="brand-logo" aria-hidden="true">🔒</span>
+        <div>
+          <h2 id="loginTitle" class="card-title">Welcome back</h2>
+          <p class="card-subtitle">Sign in to continue</p>
+        </div>
+      </div>
+    </header>
+
+    <div class="k-card-body">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+        <label class="k-label" for="username">Email</label>
+        <div class="input-wrap">
+          <span class="input-icon" aria-hidden="true">✉️</span>
+          <input id="username" type="email" class="k-textbox k-input" placeholder="you@company.com"
+                 formControlName="username" required aria-required="true" />
+        </div>
+        <div class="field-error" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched" role="alert">
+          Please provide a valid email address
+        </div>
+
+        <label class="k-label" for="password">Password</label>
+        <div class="input-wrap">
+          <span class="input-icon" aria-hidden="true">🔑</span>
+          <input id="password" [type]="showPassword ? 'text' : 'password'" class="k-textbox k-input"
+                 placeholder="••••••••" formControlName="password" required aria-required="true" />
+          <button type="button" class="toggle-pass" (click)="showPassword = !showPassword" [attr.aria-pressed]="showPassword">
+            <span *ngIf="!showPassword">👁️</span>
+            <span *ngIf="showPassword">🙈</span>
+          </button>
+        </div>
+        <div class="field-error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched" role="alert">
+          Please provide a valid password
+        </div>
+
+        <div class="row-between">
+          <label class="remember">
+            <input type="checkbox" formControlName="remember" />
+            <span>Remember me</span>
+          </label>
+          <a class="link" href="/forgot">Forgot password?</a>
+        </div>
+
+        <div class="error-message" *ngIf="errorMessage" role="alert">
+          The username and password were not recognized.
+        </div>
+
+        <div class="actions" >
+          <button kendoButton themeColor="primary" [disabled]="!loginForm.valid" class="k-button k-primary btn-primary"
+          style="background: linear-gradient(135deg, #3f51b5 0%, #303f9f 100%);">
+            Login
+          </button>
+        </div>
+
+        <div class="divider"><span>or continue with</span></div>
+
+        <div class="socials">
+          <button class="social-btn google" aria-label="Sign in with Google">G</button>
+          <button class="social-btn microsoft" aria-label="Sign in with Microsoft">M</button>
+          <button class="social-btn github" aria-label="Sign in with GitHub">GH</button>
+        </div>
+      </form>
+    </div>
+
+    <footer class="k-card-footer small-note">
+      <span>New here?</span>
+      <a class="link" (click)="openSignup()">Create an account</a>
+    </footer>
+  </div>
 </div>
-
-

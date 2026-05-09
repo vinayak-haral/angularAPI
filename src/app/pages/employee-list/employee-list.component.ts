@@ -1,9 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup,FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
 import { EmployeeFormComponent } from '../employee-form/employee-form.component';
 
 import { Employee } from 'src/app/models/employee.model';
@@ -19,6 +16,7 @@ export class EmployeeListComponent implements OnInit {
   employeeForm : FormGroup ;
 
   employee: Employee[] = [];
+  filteredEmployee: Employee[] = [];
 
   displayedColumns: string[] = [
     // 'id',
@@ -37,15 +35,15 @@ export class EmployeeListComponent implements OnInit {
     // 'package',
     'action',
   ];
-  dataSource!: MatTableDataSource<any>;
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
-  @ViewChild(MatSort) sort!: MatSort;
+  dataSource: Employee[] = [];
 
   constructor(private _empService: EmployeeService,private _coreService:CoreService,private _dialog: MatDialog, private _formBuilder: FormBuilder) {  }
 
    ngOnInit(): void {
     this._empService.getAppEmployee().subscribe(data => {
       this.employee = data
+      this.dataSource = data;
+      this.filteredEmployee = data;
       console.log("Data:",this.employee);
     });
     // this.employeeForm = this._formBuilder.group({
@@ -88,20 +86,25 @@ export class EmployeeListComponent implements OnInit {
   getEmployeeList() {
     this._empService.getAppEmployee().subscribe({
       next: (res) => {
-        this.dataSource = new MatTableDataSource(res);
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
+        this.employee = res;
+        this.dataSource = res;
+        this.filteredEmployee = res;
       },
       error: console.log,
     });
   }
 
   applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
-
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+    const filterValue = (event.target as HTMLInputElement).value.toLowerCase();
+    if (filterValue.trim() === '') {
+      this.filteredEmployee = this.dataSource;
+    } else {
+      this.filteredEmployee = this.dataSource.filter(employee =>
+        employee.name?.toLowerCase().includes(filterValue) ||
+        employee.email?.toLowerCase().includes(filterValue) ||
+        String(employee.phone)?.toLowerCase().includes(filterValue) ||
+        employee.department?.toLowerCase().includes(filterValue)
+      );
     }
   }
 
@@ -128,7 +131,5 @@ export class EmployeeListComponent implements OnInit {
       },
     });
   }
-
-
 
 }

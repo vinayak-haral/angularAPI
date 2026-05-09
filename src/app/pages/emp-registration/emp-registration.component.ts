@@ -12,6 +12,7 @@ import { Router } from '@angular/router';
 export class EmpRegistrationComponent implements OnInit {
 
   registrationForm: FormGroup;
+  isModalOpen = false;
 
   constructor(private fb: FormBuilder,private _user:UserServiceService,
     private _coreService:CoreService, private _router: Router) {
@@ -33,6 +34,17 @@ export class EmpRegistrationComponent implements OnInit {
   
   ngOnInit(): void {
   //  this.registrationForm.patchValue(this.data);
+  }
+
+  // Modal control methods
+  openRegistrationModal() {
+    this.isModalOpen = true;
+    this.registrationForm.reset();
+  }
+
+  closeRegistrationModal() {
+    this.isModalOpen = false;
+    this.registrationForm.reset();
   }
 
   // Custom validator for matching passwords
@@ -58,7 +70,8 @@ export class EmpRegistrationComponent implements OnInit {
           next:(val:any) =>{
             this._coreService.openSnackBar('Added New Employee successfully')
           //  this._dialogRef.close(true);
-          this._router.navigate(['/employee-list']);
+            this.closeRegistrationModal();
+            this._router.navigate(['/employee-list']);
           },
           error:(error:any)=>{
             console.error(error);

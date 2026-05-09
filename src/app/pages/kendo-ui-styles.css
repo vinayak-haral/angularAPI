@@ -1,12 +1,4 @@
-/* You can add global styles to this file, and also import other style files */
-
-/* @import "~bootstrap/dist/css/bootstrap.min.css"; */
-
-/* Kendo UI Styling */
-@import "./app/pages/kendo-ui-styles.css";
-
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+/* Kendo UI Custom Styling */
 
 /* Button Styling */
 [kendo-button] {
@@ -46,23 +38,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 [kendo-button]:disabled {
   opacity: 0.5;
   cursor: not-allowed;
-}
-
-[kendo-button][look="flat"] {
-  background-color: transparent;
-  color: #333;
-}
-
-[kendo-button][look="flat"]:hover {
-  background-color: #f0f0f0;
-}
-
-[kendo-button][look="flat"][themeColor="primary"] {
-  color: #3f51b5;
-}
-
-[kendo-button][look="flat"][themeColor="error"] {
-  color: #f44336;
 }
 
 /* Textbox Styling */

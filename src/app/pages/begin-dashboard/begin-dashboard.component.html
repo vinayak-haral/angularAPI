@@ -1,24 +1,58 @@
-<p>begin-dashboard works!</p>
+<div class="gallery-viewport">
+  <header class="gallery-header">
+    <h1 class="title">Image Gallery</h1>
+    <p class="subtitle">Browse items — click any card to preview details</p>
+  </header>
 
+  <section class="cards-grid" role="list">
+    <article
+      class="gallery-card k-card"
+      *ngFor="let item of items; let i = index"
+      role="listitem"
+      tabindex="0"
+      (click)="openPreview(item)"
+      (keydown.enter)="openPreview(item)"
+      [attr.aria-labelledby]="'card-title-' + item.id"
+    >
+      <div class="card-media">
+        <img
+          [src]="item.src"
+          [alt]="item.alt"
+          loading="lazy"
+          class="card-img"
+        />
+      </div>
 
+      <div class="card-body">
+        <div class="card-head">
+          <h3 id="card-title-{{item.id}}" class="card-title">{{ item.title }}</h3>
+          <p class="card-subtitle">{{ item.subtitle }}</p>
+        </div>
 
-  <mat-card class="example-card" appearance="outlined">
-    <mat-card-header>
-      <div mat-card-avatar class="example-header-image"></div>
-      <mat-card-title>Shiba Inu</mat-card-title>
-      <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-    </mat-card-header>
-    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-    <mat-card-content>
-      <p>
-        The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-        A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-        bred for hunting.
-      </p>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-  </mat-card>
-  
+        <p class="card-info">{{ item.short }}</p>
+
+        <div class="card-actions">
+          <button kendoButton themeColor="primary" (click)="openPreview(item); $event.stopPropagation()">View</button>
+          <button kendoButton (click)="share(item); $event.stopPropagation()">Share</button>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <footer class="gallery-footer">
+    <button kendoButton (click)="loadMore()" [disabled]="loading" class="load-more">Load more</button>
+  </footer>
+</div>
+
+<!-- Preview modal -->
+<div class="preview-backdrop" *ngIf="previewItem" (click)="closePreview()" role="dialog" aria-modal="true">
+  <div class="preview-card" (click)="$event.stopPropagation()" role="document">
+    <button class="close" (click)="closePreview()" aria-label="Close preview">✕</button>
+    <img [src]="previewItem.src" [alt]="previewItem.alt" class="preview-img" />
+    <div class="preview-meta">
+      <h3>{{ previewItem.title }}</h3>
+      <p class="muted">{{ previewItem.subtitle }}</p>
+      <p>{{ previewItem.long }}</p>
+    </div>
+  </div>
+</div>
